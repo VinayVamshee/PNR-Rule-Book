@@ -25,12 +25,12 @@ function App() {
   }, [theme]);
 
   const fetchBooks = async () => {
-    const res = await axios.get("http://localhost:3001/books");
+    const res = await axios.get("https://pnr-rule-book-server.vercel.app/books");
     setBooks(res.data);
   };
 
   const fetchCategories = async () => {
-    const res = await axios.get("http://localhost:3001/categories");
+    const res = await axios.get("https://pnr-rule-book-server.vercel.app/categories");
     setCategories(res.data);
   };
 
@@ -57,7 +57,7 @@ function App() {
   const openBook = (fileUrl) => setSelectedFile(formatGoogleDriveLink(fileUrl));
 
   const handleAddBook = async () => {
-    await axios.post("http://localhost:3001/books", newBook);
+    await axios.post("https://pnr-rule-book-server.vercel.app/books", newBook);
     fetchBooks();
     setNewBook({ name: "", category: "", fileUrl: "" });
     closeModal("addBookModal");
@@ -65,26 +65,26 @@ function App() {
   };
 
   const handleEditBook = async () => {
-    await axios.put(`http://localhost:3001/books/${editBook._id}`, editBook);
+    await axios.put(`https://pnr-rule-book-server.vercel.app/books/${editBook._id}`, editBook);
     fetchBooks();
     setEditBook(null);
     closeModal("editBookModal");
   };
 
   const handleDeleteBook = async (id) => {
-    await axios.delete(`http://localhost:3001/books/${id}`);
+    await axios.delete(`https://pnr-rule-book-server.vercel.app/books/${id}`);
     fetchBooks();
   };
 
   const handleAddCategory = async () => {
-    await axios.post("http://localhost:3001/categories", { name: newCategory });
+    await axios.post("https://pnr-rule-book-server.vercel.app/categories", { name: newCategory });
     fetchCategories();
     setNewCategory("");
     closeModal("addCategoryModal");
   };
 
   // const handleDeleteCategory = async (id) => {
-  //   await axios.delete(`http://localhost:3001/categories/${id}`);
+  //   await axios.delete(`https://pnr-rule-book-server.vercel.app/categories/${id}`);
   //   fetchCategories();
   // };
 
