@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Documentation from "./Documentation";
+// import Documentation from "./Documentation";
 import "./App.css";
 
 function App() {
   const savedTheme = localStorage.getItem("theme") || "light";
   const [theme, setTheme] = useState(savedTheme);
-  const [selectedFile, setSelectedFile] = useState(null);
+  // const [selectedFile, setSelectedFile] = useState(null);
   const [books, setBooks] = useState([]);
   const [categories, setCategories] = useState([]);
   const [newBook, setNewBook] = useState({ name: "", category: "", fileUrl: "" });
@@ -36,25 +36,25 @@ function App() {
 
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
-  const formatGoogleDriveLink = (originalLink) => {
-    const match = originalLink.match(/(?:\/d\/|id=)([\w-]+)/);
-    if (match) {
-      const fileId = match[1];
+  // const formatGoogleDriveLink = (originalLink) => {
+  //   const match = originalLink.match(/(?:\/d\/|id=)([\w-]+)/);
+  //   if (match) {
+  //     const fileId = match[1];
 
-      if (originalLink.includes("docs.google.com/document")) {
-        return `https://docs.google.com/document/d/${fileId}/export?format=pdf`;
-      } else if (originalLink.includes("docs.google.com/spreadsheets")) {
-        return `https://docs.google.com/spreadsheets/d/${fileId}/export?format=pdf`;
-      } else if (originalLink.includes("docs.google.com/presentation")) {
-        return `https://docs.google.com/presentation/d/${fileId}/export/pdf`;
-      } else {
-        return `https://drive.google.com/uc?export=download&id=${fileId}`;
-      }
-    }
-    return originalLink;
-  };
+  //     if (originalLink.includes("docs.google.com/document")) {
+  //       return `https://docs.google.com/document/d/${fileId}/export?format=pdf`;
+  //     } else if (originalLink.includes("docs.google.com/spreadsheets")) {
+  //       return `https://docs.google.com/spreadsheets/d/${fileId}/export?format=pdf`;
+  //     } else if (originalLink.includes("docs.google.com/presentation")) {
+  //       return `https://docs.google.com/presentation/d/${fileId}/export/pdf`;
+  //     } else {
+  //       return `https://drive.google.com/uc?export=download&id=${fileId}`;
+  //     }
+  //   }
+  //   return originalLink;
+  // };
 
-  const openBook = (fileUrl) => setSelectedFile(formatGoogleDriveLink(fileUrl));
+  // const openBook = (fileUrl) => setSelectedFile(formatGoogleDriveLink(fileUrl));
 
   const handleAddBook = async () => {
     await axios.post("https://pnr-rule-book-server.vercel.app/books", newBook);
@@ -163,21 +163,22 @@ function App() {
 
       <div className="books-grid">
         {filteredBooks.map((book) => {
-          const collapseId = `collapse-${book._id}`; // Unique ID for each book
+          // const collapseId = `collapse-${book._id}`; 
 
           return (
             <div key={book._id} className="book">
               <div className="options">
-                <button className="book-name btn-info btn btn-sm" onClick={() => openBook(book.fileUrl)} data-bs-toggle="collapse" data-bs-target={`#${collapseId}`} aria-expanded="false" aria-controls={collapseId}>{book.name} - {book.createdAt}</button>
+                <a href={book.fileUrl} className="book-name" rel="noreferrer" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/5402/5402751.png"/>{book.name} - {book.createdAt}</a>
+                {/* <button className="book-name btn-info btn btn-sm" onClick={() => openBook(book.fileUrl)} data-bs-toggle="collapse" data-bs-target={`#${collapseId}`} aria-expanded="false" aria-controls={collapseId}>{book.name} - {book.createdAt}</button> */}
                 {/* <button className="btn btn-warning btn-sm" onClick={() => { setEditBook(book); openModal("editBookModal"); }}><img src="https://cdn-icons-png.flaticon.com/512/4226/4226577.png"/>Edit</button> */}
                 <button className="btn btn-danger btn-sm" onClick={() => handleDeleteBook(book._id)}><img src="https://cdn-icons-png.flaticon.com/512/3159/3159218.png" alt="..."/>Delete</button>
               </div>
-              <p className="book-category">Category - {book.category}</p>
-              <div className="collapse" id={collapseId}>
+              <p className="book-category">{book.category}</p>
+              {/* <div className="collapse" id={collapseId}>
                 <div className="card card-body">
                   <Documentation file={selectedFile} />
                 </div>
-              </div>
+              </div> */}
             </div>
           );
         })}
