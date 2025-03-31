@@ -71,21 +71,34 @@
 .book {
   background-color: var(--book-bg);
   color: var(--book-text);
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-top: 5px;
 }
 
 .book-name {
-  color: white;
   color: var(--text-color);
-}
 
+  background-color: rgba(255, 255, 255, 0.746);
+  padding: 8px;
+  border-radius: 10px;
+}
+.book-name:hover {
+  background-color: rgba(0, 0, 0, 0.329);
+  color: black;
+}
+.book-category {
+  font-size: small;
+  margin-top: 5px;
+}
 .book .options {
   display: flex;
-  gap: 10px;
   justify-content: space-between;
+}
+.book .options a img{
+  width: 25px;
+  margin-right: 5px;
 }
 
 .book .options .btn {
@@ -161,4 +174,9 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
+}
+
+.book .options a {
+  text-decoration: none;
+  color: var(--text-color);
 }
